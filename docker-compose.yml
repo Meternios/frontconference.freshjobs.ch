@@ -1,5 +1,4 @@
 version: '3.3'
-
 services:
    db:
      image: mysql:5.7
@@ -11,7 +10,6 @@ services:
        MYSQL_DATABASE: frontconference.freshjobs_db
        MYSQL_USER: admax
        MYSQL_PASSWORD: fCrMobn
-
    wordpress:
      depends_on:
        - db
