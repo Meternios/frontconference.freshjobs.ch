@@ -122,6 +122,8 @@ add_action( 'widgets_init', 'frontconference_freshjob_widgets_init' );
 function frontconference_freshjob_scripts() {
 	wp_enqueue_style( 'frontconference-freshjob-style', get_stylesheet_uri() );
 
+	wp_enqueue_script('jquery','https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',array(),'3.4.1');
+
 	wp_enqueue_script( 'frontconference-freshjob-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
 	wp_enqueue_script( 'frontconference-freshjob-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
