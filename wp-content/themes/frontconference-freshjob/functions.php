@@ -159,3 +159,30 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+/**
+ * Add SVG upload support and block Username fetch via author request
+ */
+
+if ( !is_admin() ) {
+    // default URL format
+    if ( preg_match('/author=([0-9]*)/i', $_SERVER['QUERY_STRING']) ) {
+        die();
+    }
+    add_filter('redirect_canonical', 'shapeSpace_check_enum', 10, 2);
+}
+
+function shapeSpace_check_enum( $redirect, $request ) {
+    // permalink URL format
+    if ( preg_match('/\?author=([0-9]*)(\/*)/i', $request) ) { 
+        die();
+    }else {
+        return $redirect;
+    }
+}
+
+function add_svg_to_upload_mimes( $upload_mimes ) {
+    $upload_mimes['svg'] = 'image/svg+xml';
+    $upload_mimes['svgz'] = 'image/svg+xml';
+    return $upload_mimes;
+}
+add_filter('upload_mimes', 'add_svg_to_upload_mimes');
