@@ -1,0 +1,16 @@
+.wk-cookie-notice{
+	position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 320px;
+    z-index: 1000;
+    padding: 10px;
+}
+
+.wk-cookie-notice a{
+	display:inline-block;
+}
+
+.wk-cookie-notice p{
+	font-size:1em;
+}
