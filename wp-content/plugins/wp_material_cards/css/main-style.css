@@ -1,16 +1,41 @@
-.wk-cookie-notice{
-	position: fixed;
-    bottom: 10px;
-    right: 10px;
-    width: 320px;
-    z-index: 1000;
-    padding: 10px;
+.material-card {
+    width:50%;
+    margin:auto;
+    height:300px;
 }
 
-.wk-cookie-notice a{
-	display:inline-block;
+.job-card {
+    background-color:blue;
 }
 
-.wk-cookie-notice p{
-	font-size:1em;
+.fun-card {
+    background-color:red;
+    text-align:center;
+}
+
+.material_cards-container {
+    position: relative;
+    overflow: hidden;
+    margin: 20px auto 0 auto;
+    border-radius: 4px;
+}
+  
+.material_cards-container .material_cards-animate {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 200px;
+    list-style: none;
+}
+
+.material_cards-container .material_cards-animate > div {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    line-height: 300px;
 }
