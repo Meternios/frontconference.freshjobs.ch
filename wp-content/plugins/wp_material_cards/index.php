@@ -147,7 +147,7 @@ function material_cards_grid_function() {
 	
 	$query = new WP_Query( $args );
 	if( $query->have_posts() ){
-		$html .= '<div class="material_cards-container"><div class="material_cards-animate">';
+		$html .= '<div class="material_cards-container">';
 		while( $query->have_posts() ){
 			$query->the_post();
 			$current_terms = wp_get_post_terms(get_the_ID(), 'card_category', array("fields" => "all"));
@@ -167,41 +167,63 @@ function material_cards_grid_function() {
 					<div class="card-footer"></div>
 				</div>';
 		}
-		$html .= '</div></div>';
+		$html .= '</div>';
 		$html .= "<script>
 				jQuery(document).ready(function($){
-					var slideCount = $('.material_cards-container .material_cards-animate > div').length;
-					var slideWidth = $('.material_cards-container .material_cards-animate > div').width();
-					var slideHeight = $('.material_cards-container .material_cards-animate > div').height();
-					var sliderUlWidth = slideCount * slideWidth;
+					var currentIndex = 0;
+					var cardPerIndex = $('.material_cards-container > .material-card');
 
-					$('.material_cards-container').css({ width: slideWidth, height: slideHeight });
+					flyCardIn();
 
-					$('.material_cards-container .material_cards-animate').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+					function flyCardIn(){
+						cardPerIndex.eq(currentIndex).addClass('material_cards-flyIn');
+						setTimeout(flyCardOut, 7000);
+					}
 
-					$('.material_cards-container .material_cards-animate > div:last-child').prependTo('#slider ul');
+					function flyCardOut(){
+						cardPerIndex.eq(currentIndex).addClass('material_cards-flyOut');
+						setTimeout(resetAnimationAndIncrease, 1000);
+					}
 
-					function moveLeft() {
-						$('.material_cards-animate').animate({
-							left: + slideWidth
-						}, 200, function () {
-							$('.material_cards-container .material_cards-animate > div:last-child').prependTo('.material_cards-animate');
-							$('.material_cards-animate').css('left', '');
-						});
-					};
-
-					function moveRight() {
-						$('.material_cards-animate').animate({
-							left: - slideWidth
-						}, 200, function () {
-							$('.material_cards-container .material_cards-animate > div:first-child').appendTo('.material_cards-animate');
-							$('.material_cards-animate').css('left', '');
-						});
-					};
+					function resetAnimationAndIncrease(){
+						cardPerIndex.eq(currentIndex).removeClass('material_cards-flyIn material_cards-flyOut');
+						currentIndex++;
+						if(currentIndex >= $('.material_cards-container > .material-card').length){
+							currentIndex = 0;
+						}
+					}
 
 					setInterval(function () {
-						moveRight();
-					}, 3000);
+						flyCardIn();
+					}, 10000);
+
+					var start = null;
+					$('.material_cards-container').on('touchstart',function(){
+					  if(event.touches.length === 1){
+						 //just one finger touched
+						 start = event.touches.item(0).clientX;
+					   }else{
+						 //a second finger hit the screen, abort the touch
+						 start = null;
+					   }
+					});
+
+					$('.material_cards-container').on('touchend',function(){
+						var offset = 100;//at least 100px are a swipe
+						if(start){
+						  //the only finger that hit the screen left it
+						  var end = event.changedTouches.item(0).clientX;
+					
+						  if(end > start + offset){
+						   //a left -> right swipe
+						   flyCardIn();
+						  }
+						  if(end < start - offset ){
+						   //a right -> left swipe
+						   console.log('left');
+						  }
+						}
+					  });
 				});
 			</script>";
 	}
