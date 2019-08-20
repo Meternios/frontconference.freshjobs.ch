@@ -172,17 +172,18 @@ function material_cards_grid_function() {
 				jQuery(document).ready(function($){
 					var currentIndex = 0;
 					var cardPerIndex = $('.material_cards-container > .material-card');
+					var waitHandler = [];
 
 					flyCardIn();
 
 					function flyCardIn(){
 						cardPerIndex.eq(currentIndex).addClass('material_cards-flyIn');
-						setTimeout(flyCardOut, 7000);
+						waitHandler[1] = setTimeout(flyCardOut, 7000);
 					}
 
 					function flyCardOut(){
 						cardPerIndex.eq(currentIndex).addClass('material_cards-flyOut');
-						setTimeout(resetAnimationAndIncrease, 1000);
+						waitHandler[2] = setTimeout(resetAnimationAndIncrease, 1000);
 					}
 
 					function resetAnimationAndIncrease(){
@@ -193,7 +194,7 @@ function material_cards_grid_function() {
 						}
 					}
 
-					setInterval(function () {
+					waitHandler[3] = setInterval(function () {
 						flyCardIn();
 					}, 10000);
 
@@ -215,8 +216,12 @@ function material_cards_grid_function() {
 						  var end = event.changedTouches.item(0).clientX;
 					
 						  if(end > start + offset){
-						   //a left -> right swipe
-						   flyCardIn();
+							//a left -> right swipe
+							flyCardOut();
+							//waitHandler.forEach(clearTimeout);
+							clearTimeout(waitHandler[1]);
+							clearInterval(waitHandler[3]);
+							flyCardIn();
 						  }
 						  if(end < start - offset ){
 						   //a right -> left swipe
