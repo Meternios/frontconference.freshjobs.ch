@@ -24,15 +24,16 @@ function material_cards_admin_menu() {
 
 function material_cards_admin_page(){
 	include MATERIAL_CARDS_PLUGIN_PATH.'admin/material_cards-admin-page.php';
-	wp_enqueue_style( 'admin-style', MATERIAL_CARDS_PLUGIN_URL.'css/admin-style.css', array(), '1.0.0');
+	wp_enqueue_style( 'admin-style', MATERIAL_CARDS_PLUGIN_URL.'css/admin-style.css', array(), '1.0.0' );
 }
 
 /**
- * Prepare Styles to be enqueued
+ * Prepare Scripts and Styles to be enqueued
  **/
 add_action( 'wp_enqueue_scripts', 'material_cards_wp_enqueue_scripts' );
 function material_cards_wp_enqueue_scripts() {
-    wp_register_style( 'material-card-main-style', MATERIAL_CARDS_PLUGIN_URL.'css/main-style.css', array(), '1.0.0');
+	wp_register_style( 'material-card-main-style', MATERIAL_CARDS_PLUGIN_URL.'css/main-style.css', array(), '1.0.0' );
+	wp_register_script( 'material-card-main-script', MATERIAL_CARDS_PLUGIN_URL.'js/main.js', array(), '1.0.0' );
 }
 
 /**
@@ -97,41 +98,40 @@ function material_cards_add_post_type() {
 	); 	
 	 
 	register_taxonomy('card_category',array('cards'), array(
-	'hierarchical' => true,
-	'labels' => $labels_taxonomy,
-	'show_ui' => true,
-	'show_admin_column' => true,
-	'query_var' => true,
-	'rewrite' => array( 'slug' => 'card_categories' ),
+		'hierarchical' => true,
+		'labels' => $labels_taxonomy,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => array( 'slug' => 'card_categories' ),
 	));
 }
 
 /**
  * Insert Taxonomy on Plugin activation
- */
+ **/
 register_activation_hook( __FILE__, 'material_cards_install' );
-function material_cards_install(){
+function material_cards_install() {
 	material_cards_add_post_type();
 	wp_insert_term(
 		'Fun Card',   // the term 
 		'card_category', // the taxonomy
 		array(
-			'slug'        => 'fun-card',
+			'slug' => 'fun-card',
 		)
 	);
 	wp_insert_term(
 		'Job Card',   // the term 
 		'card_category', // the taxonomy
 		array(
-			'slug'        => 'job-card',
+			'slug' => 'job-card',
 		)
 	);
 }
 
 /**
  * Generate Shortcode for Displaying Cards
- */
-
+ **/
 function material_cards_grid_function() {
 	$args = array(
 		'post_type' => 'cards',
@@ -142,20 +142,21 @@ function material_cards_grid_function() {
 
 	$html = '';
 
-	//Enqueue Style if shortcode is present
+	// Enqueue Styles and Script if shortcode is present
 	wp_enqueue_style( 'material-card-main-style' );
+	wp_enqueue_script( 'material-card-main-script' );
 	
 	$query = new WP_Query( $args );
-	if( $query->have_posts() ){
+	if( $query->have_posts() ) {
 		$html .= '<div class="material_cards-container">';
-		while( $query->have_posts() ){
+		while( $query->have_posts() ) {
 			$query->the_post();
-			$current_terms = wp_get_post_terms(get_the_ID(), 'card_category', array("fields" => "all"));
+			$current_terms = wp_get_post_terms( get_the_ID(), 'card_category', array("fields" => "all") );
 			$classes = ['material-card'];
 
-			if($current_terms[0]->slug === "fun-card"){
+			if( $current_terms[0]->slug === "fun-card" ){
 				$classes[] = "fun-card";
-			}else if($current_terms[0]->slug === "job-card"){
+			}else if( $current_terms[0]->slug === "job-card" ){
 				$classes[] = "job-card";
 			}else{
 				$classes[] = "error-card";
@@ -168,71 +169,8 @@ function material_cards_grid_function() {
 				</div>';
 		}
 		$html .= '</div>';
-		$html .= "<script>
-				jQuery(document).ready(function($){
-					var currentIndex = 0;
-					var cardPerIndex = $('.material_cards-container > .material-card');
-					var waitHandler = [];
-
-					flyCardIn();
-
-					function flyCardIn(){
-						cardPerIndex.eq(currentIndex).addClass('material_cards-flyIn');
-						waitHandler[1] = setTimeout(flyCardOut, 7000);
-					}
-
-					function flyCardOut(){
-						cardPerIndex.eq(currentIndex).addClass('material_cards-flyOut');
-						waitHandler[2] = setTimeout(resetAnimationAndIncrease, 1000);
-					}
-
-					function resetAnimationAndIncrease(){
-						cardPerIndex.eq(currentIndex).removeClass('material_cards-flyIn material_cards-flyOut');
-						currentIndex++;
-						if(currentIndex >= $('.material_cards-container > .material-card').length){
-							currentIndex = 0;
-						}
-					}
-
-					waitHandler[3] = setInterval(function () {
-						flyCardIn();
-					}, 10000);
-
-					var start = null;
-					$('.material_cards-container').on('touchstart',function(){
-					  if(event.touches.length === 1){
-						 //just one finger touched
-						 start = event.touches.item(0).clientX;
-					   }else{
-						 //a second finger hit the screen, abort the touch
-						 start = null;
-					   }
-					});
-
-					$('.material_cards-container').on('touchend',function(){
-						var offset = 100;//at least 100px are a swipe
-						if(start){
-						  //the only finger that hit the screen left it
-						  var end = event.changedTouches.item(0).clientX;
-					
-						  if(end > start + offset){
-							//a left -> right swipe
-							flyCardOut();
-							//waitHandler.forEach(clearTimeout);
-							clearTimeout(waitHandler[1]);
-							clearInterval(waitHandler[3]);
-							flyCardIn();
-						  }
-						  if(end < start - offset ){
-						   //a right -> left swipe
-						   console.log('left');
-						  }
-						}
-					  });
-				});
-			</script>";
 	}
 	wp_reset_postdata();
 	return $html;
 }
-add_shortcode('material_cards_grid', 'material_cards_grid_function');
+add_shortcode( 'material_cards_grid', 'material_cards_grid_function' );

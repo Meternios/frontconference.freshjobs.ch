@@ -23,11 +23,11 @@
     text-align: center;
 }
 
-.material_cards-flyIn {
-    animation: flyin 1s normal forwards ease-in-out;
+.material_cards-flyInRight {
+    animation: flyinright 1s normal forwards ease-in-out;
 }
 
-@keyframes flyin {
+@keyframes flyinright {
     0% {
         right: -500px;
         transform: translateX(0);
@@ -46,11 +46,14 @@
     }
 }
 
-.material_cards-flyOut {
-    animation: flyout 1s normal forwards ease-in-out;
+/**
+*   Needed Because of CSS Priority
+*/
+.material_cards-container > .material_cards-flyOutLeft {
+    animation: flyoutleft 1s normal forwards ease-in-out;
 }
 
-@keyframes flyout {
+@keyframes flyoutleft {
     0% {
         right: 50%;
         transform: translateX(50%);
@@ -67,4 +70,50 @@
         right: calc(100% + 500px);
         transform: translateX(0);
     }
-  }
+}
+
+.material_cards-flyInLeft {
+    animation: flyinleft 1s normal forwards ease-in-out;
+}
+
+@keyframes flyinleft {
+    0% {
+        right: calc(100% + 500px);
+        transform: translateX(0);
+    }
+    20% {
+        right: 50%;
+        transform: translateX(100%);
+    }
+    40%{
+        right: 50%;
+        transform: translateX(30%);
+    }
+    100%{
+        right: 50%;
+        transform: translateX(50%);
+    }
+}
+
+.material_cards-flyOutRight {
+    animation: flyoutright 1s normal forwards ease-in-out;
+}
+
+@keyframes flyoutright {
+    0% {
+        right: 50%;
+        transform: translateX(50%);
+    }
+    60% {
+        right: 50%;
+        transform: translateX(80%);
+    }
+    80% {
+        right: 50%;
+        transform: translateX(0);
+    }
+    100% {
+        right: -500px;
+        transform: translateX(0);
+    }
+}
