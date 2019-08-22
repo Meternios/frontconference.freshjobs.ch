@@ -15,6 +15,11 @@
     padding: 50px;
 }
 
+.material-card img {
+    border-radius: 5px;
+    width:100px;
+}
+
 .job-card {
     background-color: #00A3DF;
 }
@@ -33,17 +38,13 @@
     position:relative;
 }
 
-.job-card .card-footer > img {
-    border-radius: 5px;
-    width:100px;
-}
-
-.job-card .card-footer > span {
+.job-card .card-footer a {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     margin-left: 20px;
     font-weight: bold;
+    color: #fff;
 }
 
 .fun-card {
@@ -56,11 +57,6 @@
 
 .fun-card .card-content {
     margin-top: 30px;
-}
-
-.fun-card .card-content > img {
-    border-radius: 5px;
-    width:100px;
 }
 
 .fun-card .card-footer {

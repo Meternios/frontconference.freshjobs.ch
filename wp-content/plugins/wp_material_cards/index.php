@@ -72,7 +72,7 @@ function material_cards_add_post_type() {
 		'description'         => __( 'Custom Post Type Cards', 'material_cards' ),
 		'labels'              => $labels,
 		// Features this CPT supports in Post Editor
-		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions'),
+		'supports'            => array( 'title', 'revisions'),
 		// Assign custom taxonomy
 		'taxonomies'          => array( 'card_category' ),
 		'hierarchical'        => false,
@@ -85,7 +85,7 @@ function material_cards_add_post_type() {
 		'can_export'          => true,
 		'has_archive'         => false,
 		'exclude_from_search' => false,
-		'publicly_queryable'  => true,
+		'publicly_queryable'  => false,
 	);
 		
 	// Registering your Custom Post Type
@@ -208,23 +208,17 @@ function material_cards_grid_function() {
 
 			if( $current_terms[0]->slug === "fun-card" ){
 				$classes[] = "fun-card";
-
-				$html .= '<div class="'.implode(" ", $classes).'">
-					<div class="card-header">'.$post_meta['material_cards-fun-topic'][0].'</div>
-					<div class="card-content"><img src="'.get_the_post_thumbnail_url( get_the_ID(),'thumbnail' ).'"></div>
-					<div class="card-footer">'.get_the_content().'</div>
-				</div>';
 			}else if( $current_terms[0]->slug === "job-card" ){
 				$classes[] = "job-card";
-
-				$html .= '<div class="'.implode(" ", $classes).'">
-					<div class="card-header">'.get_the_title().'</div>
-					<div class="card-content">'.$post_meta['material_cards-job-company'][0].'</div>
-					<div class="card-footer"><img src="'.get_the_post_thumbnail_url( get_the_ID(),'thumbnail' ).'"><span>'.$post_meta['material_cards-job-url'][0].'</span></div>
-				</div>';
 			}else{
 				$classes[] = "error-card";
 			}
+
+			$html .= '<div class="'.implode(" ", $classes).'">
+					<div class="card-header"><span>'.$post_meta['material_cards-header'][0].'</span></div>
+					<div class="card-content"><span>'.$post_meta['material_cards-content'][0].'</span></div>
+					<div class="card-footer"><span>'.$post_meta['material_cards-footer'][0].'</span></div>
+				</div>';
 		}
 		$html .= '</div>';
 	}
@@ -233,6 +227,17 @@ function material_cards_grid_function() {
 	return $html;
 }
 add_shortcode( 'material_cards_grid', 'material_cards_grid_function' );
+
+/**
+ * Remove Disscusion and Comments
+ **/
+function material_cards_remove_meta_box()
+{
+	remove_meta_box("commentstatusdiv", "cards", "normal");
+	remove_meta_box("commentsdiv", "cards", "normal");
+}
+
+add_action("do_meta_boxes", "material_cards_remove_meta_box");
 
 /**
  * Add Custom Meta Box to Custom Post Type Backend
@@ -245,17 +250,14 @@ function material_cards_custom_meta_box_markup($object)
     ?>
         <div class="material_cards-custom-meta-box">
 			<fieldset>
-			<legend><?php _e('Job Card','material_cards'); ?></legend>
-				<label for="material_cards-job-company"><? _e('Company','material_cards') ?></label>
-				<input name="material_cards-job-company" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-job-company", true); ?>">
+				<label for="material_cards-header"><? _e('Card header','material_cards') ?></label>
+				<input name="material_cards-header" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-header", true); ?>">
 				<br>
-				<label for="material_cards-job-url"><? _e('Freshjob Url','material_cards') ?></label>
-				<input name="material_cards-job-url" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-job-url", true); ?>">
-			</fieldset>
-			<fieldset>
-				<legend><?php _e('Fun Card','material_cards'); ?></legend>
-				<label for="material_cards-fun-topic"><? _e('Topic','material_cards') ?></label>
-				<input name="material_cards-fun-topic" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-fun-topic", true); ?>">
+				<label for="material_cards-content"><? _e('Card content','material_cards') ?></label>
+				<input name="material_cards-content" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-content", true); ?>">
+				<br>
+				<label for="material_cards-footer"><? _e('Card footer','material_cards') ?></label>
+				<input name="material_cards-footer" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-footer", true); ?>">
 			</fieldset>
         </div>
     <?php  
@@ -263,7 +265,7 @@ function material_cards_custom_meta_box_markup($object)
 
 function material_cards_add_custom_meta_box()
 {
-    add_meta_box("material_cards-meta-box", "Material Cards Meta Box", "material_cards_custom_meta_box_markup", "cards", "normal", "high", null);
+    add_meta_box("material_cards-meta-box", __('Card meta (html allowed)','material_cards'), "material_cards_custom_meta_box_markup", "cards", "normal", "high", null);
 }
 
 add_action("add_meta_boxes", "material_cards_add_custom_meta_box");
@@ -288,23 +290,23 @@ function material_cards_save_custom_meta_box($post_id, $post, $update)
 
     $meta_box_text_value = "";
 
-    if(isset($_POST["material_cards-job-company"]))
+    if(isset($_POST["material_cards-header"]))
     {
-        $meta_box_text_value = $_POST["material_cards-job-company"];
+        $meta_box_text_value = $_POST["material_cards-header"];
     }   
-	update_post_meta($post_id, "material_cards-job-company", $meta_box_text_value);
+	update_post_meta($post_id, "material_cards-header", $meta_box_text_value);
 	
-	if(isset($_POST["material_cards-job-url"]))
+	if(isset($_POST["material_cards-content"]))
     {
-        $meta_box_text_value = $_POST["material_cards-job-url"];
+        $meta_box_text_value = $_POST["material_cards-content"];
     }   
-	update_post_meta($post_id, "material_cards-job-url", $meta_box_text_value);
+	update_post_meta($post_id, "material_cards-content", $meta_box_text_value);
 	
-	if(isset($_POST["material_cards-fun-topic"]))
+	if(isset($_POST["material_cards-footer"]))
     {
-        $meta_box_text_value = $_POST["material_cards-fun-topic"];
+        $meta_box_text_value = $_POST["material_cards-footer"];
     }   
-    update_post_meta($post_id, "material_cards-fun-topic", $meta_box_text_value);
+    update_post_meta($post_id, "material_cards-footer", $meta_box_text_value);
 }
 
 add_action("save_post", "material_cards_save_custom_meta_box", 10, 3);
