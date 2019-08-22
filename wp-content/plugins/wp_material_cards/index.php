@@ -114,15 +114,15 @@ register_activation_hook( __FILE__, 'material_cards_install' );
 function material_cards_install() {
 	material_cards_add_post_type();
 	wp_insert_term(
-		'Fun Card',   // the term 
-		'card_category', // the taxonomy
+		'Fun Card',
+		'card_category',
 		array(
 			'slug' => 'fun-card',
 		)
 	);
 	wp_insert_term(
-		'Job Card',   // the term 
-		'card_category', // the taxonomy
+		'Job Card',
+		'card_category',
 		array(
 			'slug' => 'job-card',
 		)
@@ -133,24 +133,68 @@ function material_cards_install() {
  * Generate Shortcode for Displaying Cards
  **/
 function material_cards_grid_function() {
-	$args = array(
-		'post_type' => 'cards',
-		'post_status' => 'publish',
-		'orderby' => 'rand',
-		'order'    => 'ASC'
-	);
-
-	$html = '';
-
 	// Enqueue Styles and Script if shortcode is present
 	wp_enqueue_style( 'material-card-main-style' );
 	wp_enqueue_script( 'material-card-main-script' );
 	
-	$query = new WP_Query( $args );
-	if( $query->have_posts() ) {
+	// Array used to store all Posts from fun-card and job-card and alternate it
+	$allCardsTogether = [];
+	$html = '';
+
+	$allFunCards = get_posts(array(
+		'post_type' => 'cards',
+		'post__in' => $allCardsTogether,
+		'orderby' => 'rand',
+		'posts_per_page' => '-1',
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'card_category',
+				'field' => 'slug',
+				'terms' => 'job-card'
+			)
+		),
+		'fields' => 'ids'
+	));
+	$allJobCards = get_posts(array(
+		'post_type' => 'cards',
+		'post__in' => $allCardsTogether,
+		'orderby' => 'rand',
+		'posts_per_page' => '-1',
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'card_category',
+				'field' => 'slug',
+				'terms' => 'fun-card'
+			)
+		),
+		'fields' => 'ids'
+	));
+	if (count($allFunCards) >= count($allJobCards)) {
+	
+		$count = count($allFunCards);
+	
+	} else {
+		$count = count($allJobCards);
+	
+	}
+	
+	// Alternate job-card and fun-card
+	for ($i = 0; $i < $count; $i++) {
+		$allCardsTogether[] = $allFunCards[$i];
+		$allCardsTogether[] = $allJobCards[$i];
+	}
+	
+	
+	$wp_query = new WP_Query(array(
+		'post_type' => 'cards',
+		'post__in' => $allCardsTogether,
+		'orderby' => 'post__in'
+	));
+	
+	if ($wp_query -> have_posts()){
 		$html .= '<div class="material_cards-container">';
-		while( $query->have_posts() ) {
-			$query->the_post();
+		while( $wp_query->have_posts() ) {
+			$wp_query->the_post();
 			$current_terms = wp_get_post_terms( get_the_ID(), 'card_category', array("fields" => "all") );
 			$classes = ['material-card'];
 
@@ -171,6 +215,7 @@ function material_cards_grid_function() {
 		$html .= '</div>';
 	}
 	wp_reset_postdata();
+
 	return $html;
 }
 add_shortcode( 'material_cards_grid', 'material_cards_grid_function' );
