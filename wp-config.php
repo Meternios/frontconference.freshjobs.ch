@@ -27,7 +27,7 @@ define( 'DB_USER', 'root' );
 define( 'DB_PASSWORD', 'root' );
 
 /** Ersetze localhost mit der MySQL-Serveradresse */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', 'localhost:3307' );
 
 /** Der Datenbankzeichensatz der beim Erstellen der Datenbanktabellen verwendet werden soll */
 define( 'DB_CHARSET', 'utf8mb4' );
