@@ -1,0 +1,18 @@
+.material_cards-custom-meta-box > fieldset {
+    outline: 1px solid #000;
+    width: calc(50% - 10px);
+    float: left;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.material_cards-custom-meta-box > fieldset:first-child {
+    margin-right: 20px;
+}
+
+.material_cards-custom-meta-box:after { 
+    content: " ";
+    display: block; 
+    height: 0; 
+    clear: both;
+ }

@@ -27,6 +27,14 @@ function material_cards_admin_page(){
 	wp_enqueue_style( 'admin-style', MATERIAL_CARDS_PLUGIN_URL.'css/admin-style.css', array(), '1.0.0' );
 }
 
+add_action( 'admin_print_scripts-post.php', 'portfolio_admin_script', 11 );
+
+function portfolio_admin_script() {
+    global $post_type;
+    if( 'cards' == $post_type )
+    wp_enqueue_style( 'admin-style', MATERIAL_CARDS_PLUGIN_URL.'css/admin-style.css', array(), '1.0.0' );
+}
+
 /**
  * Prepare Scripts and Styles to be enqueued
  **/
@@ -64,7 +72,7 @@ function material_cards_add_post_type() {
 		'description'         => __( 'Custom Post Type Cards', 'material_cards' ),
 		'labels'              => $labels,
 		// Features this CPT supports in Post Editor
-		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions'),
 		// Assign custom taxonomy
 		'taxonomies'          => array( 'card_category' ),
 		'hierarchical'        => false,
@@ -184,7 +192,6 @@ function material_cards_grid_function() {
 		$allCardsTogether[] = $allJobCards[$i];
 	}
 	
-	
 	$wp_query = new WP_Query(array(
 		'post_type' => 'cards',
 		'post__in' => $allCardsTogether,
@@ -197,20 +204,27 @@ function material_cards_grid_function() {
 			$wp_query->the_post();
 			$current_terms = wp_get_post_terms( get_the_ID(), 'card_category', array("fields" => "all") );
 			$classes = ['material-card'];
+			$post_meta = get_post_meta(get_the_ID());
 
 			if( $current_terms[0]->slug === "fun-card" ){
 				$classes[] = "fun-card";
+
+				$html .= '<div class="'.implode(" ", $classes).'">
+					<div class="card-header">'.$post_meta['material_cards-fun-topic'][0].'</div>
+					<div class="card-content"><img src="'.get_the_post_thumbnail_url( get_the_ID(),'thumbnail' ).'"></div>
+					<div class="card-footer">'.get_the_content().'</div>
+				</div>';
 			}else if( $current_terms[0]->slug === "job-card" ){
 				$classes[] = "job-card";
+
+				$html .= '<div class="'.implode(" ", $classes).'">
+					<div class="card-header">'.get_the_title().'</div>
+					<div class="card-content">'.$post_meta['material_cards-job-company'][0].'</div>
+					<div class="card-footer"><img src="'.get_the_post_thumbnail_url( get_the_ID(),'thumbnail' ).'"><span>'.$post_meta['material_cards-job-url'][0].'</span></div>
+				</div>';
 			}else{
 				$classes[] = "error-card";
 			}
-
-			$html .= '<div class="'.implode(" ", $classes).'">
-					<div class="card-header">'.get_the_title().'</div>
-					<div class="card-content"></div>
-					<div class="card-footer"></div>
-				</div>';
 		}
 		$html .= '</div>';
 	}
@@ -219,3 +233,78 @@ function material_cards_grid_function() {
 	return $html;
 }
 add_shortcode( 'material_cards_grid', 'material_cards_grid_function' );
+
+/**
+ * Add Custom Meta Box to Custom Post Type Backend
+ **/
+function material_cards_custom_meta_box_markup($object)
+{
+	// Prevent Attacks
+    wp_nonce_field(basename(__FILE__), "meta-box-nonce");
+
+    ?>
+        <div class="material_cards-custom-meta-box">
+			<fieldset>
+			<legend><?php _e('Job Card','material_cards'); ?></legend>
+				<label for="material_cards-job-company"><? _e('Company','material_cards') ?></label>
+				<input name="material_cards-job-company" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-job-company", true); ?>">
+				<br>
+				<label for="material_cards-job-url"><? _e('Freshjob Url','material_cards') ?></label>
+				<input name="material_cards-job-url" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-job-url", true); ?>">
+			</fieldset>
+			<fieldset>
+				<legend><?php _e('Fun Card','material_cards'); ?></legend>
+				<label for="material_cards-fun-topic"><? _e('Topic','material_cards') ?></label>
+				<input name="material_cards-fun-topic" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-fun-topic", true); ?>">
+			</fieldset>
+        </div>
+    <?php  
+}
+
+function material_cards_add_custom_meta_box()
+{
+    add_meta_box("material_cards-meta-box", "Material Cards Meta Box", "material_cards_custom_meta_box_markup", "cards", "normal", "high", null);
+}
+
+add_action("add_meta_boxes", "material_cards_add_custom_meta_box");
+
+/**
+ * Safe Custom Meta Box Data
+ **/
+function material_cards_save_custom_meta_box($post_id, $post, $update)
+{
+    if (!isset($_POST["meta-box-nonce"]) || !wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)))
+        return $post_id;
+
+    if(!current_user_can("edit_post", $post_id))
+        return $post_id;
+
+    if(defined("DOING_AUTOSAVE") && DOING_AUTOSAVE)
+        return $post_id;
+
+    $slug = "cards";
+    if($slug != $post->post_type)
+        return $post_id;
+
+    $meta_box_text_value = "";
+
+    if(isset($_POST["material_cards-job-company"]))
+    {
+        $meta_box_text_value = $_POST["material_cards-job-company"];
+    }   
+	update_post_meta($post_id, "material_cards-job-company", $meta_box_text_value);
+	
+	if(isset($_POST["material_cards-job-url"]))
+    {
+        $meta_box_text_value = $_POST["material_cards-job-url"];
+    }   
+	update_post_meta($post_id, "material_cards-job-url", $meta_box_text_value);
+	
+	if(isset($_POST["material_cards-fun-topic"]))
+    {
+        $meta_box_text_value = $_POST["material_cards-fun-topic"];
+    }   
+    update_post_meta($post_id, "material_cards-fun-topic", $meta_box_text_value);
+}
+
+add_action("save_post", "material_cards_save_custom_meta_box", 10, 3);

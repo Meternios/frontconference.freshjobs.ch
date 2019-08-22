@@ -5,6 +5,12 @@ jQuery( document ).ready( function( $ ) {
 	const cardPerIndex = $( '.material_cards-container > .material-card' );
 	// eslint-disable-next-line prefer-const
 	let waitHandler = [];
+	const funCardColors = [ '#BF2222', '#D0A40C', '#98CA0C' ];
+
+	// generate random color foreach fun card
+	$( '.fun-card' ).each( function() {
+		$( this ).css( 'background-color', funCardColors[ Math.floor( Math.random() * 3 ) + 0 ] );
+	} );
 
 	flyCardInRight();
 
