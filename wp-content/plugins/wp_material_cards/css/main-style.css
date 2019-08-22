@@ -1,7 +1,6 @@
 .material_cards-container {
     position: relative;
-    overflow-x: hidden;
-    height: 500px;
+    overflow: hidden;
 }
 
 .material-card {
@@ -13,6 +12,7 @@
     border-radius: 5px;
     color: #fff;
     padding: 50px;
+    top: 50%;
 }
 
 .material-card img {
@@ -73,19 +73,19 @@
 @keyframes flyinright {
     0% {
         right: -500vw;
-        transform: translateX(0);
+        transform: translate(0, -50%);
     }
     60% {
         right: 50%;
-        transform: translateX(0);
+        transform: translate(0, -50%);
     }
     80% {
         right: 50%;
-        transform: translateX(80%);
+        transform: translate(80%, -50%);
     }
     100% {
         right: 50%;
-        transform: translateX(50%);
+        transform: translate(50%, -50%);
     }
 }
 
@@ -99,19 +99,19 @@
 @keyframes flyoutleft {
     0% {
         right: 50%;
-        transform: translateX(50%);
+        transform: translate(50%, -50%);
     }
     20% {
         right: 50%;
-        transform: translateX(30%);
+        transform: translate(30%, -50%);
     }
     40%{
         right: 50%;
-        transform: translateX(100%);
+        transform: translate(100%, -50%);
     }
     100%{
         right: calc(100% + 50vw);
-        transform: translateX(0);
+        transform: translate(0, -50%);
     }
 }
 
@@ -122,19 +122,19 @@
 @keyframes flyinleft {
     0% {
         right: calc(100% + 50vw);
-        transform: translateX(0);
+        transform: translate(0, -50%);
     }
     20% {
         right: 50%;
-        transform: translateX(100%);
+        transform: translate(100%, -50%);
     }
     40%{
         right: 50%;
-        transform: translateX(30%);
+        transform: translate(30%, -50%);
     }
     100%{
         right: 50%;
-        transform: translateX(50%);
+        transform: translate(50%, -50%);
     }
 }
 
@@ -145,18 +145,18 @@
 @keyframes flyoutright {
     0% {
         right: 50%;
-        transform: translateX(50%);
+        transform: translate(50%, -50%);
     }
     60% {
         right: 50%;
-        transform: translateX(80%);
+        transform: translate(80%, -50%);
     }
     80% {
         right: 50%;
-        transform: translateX(0);
+        transform: translate(0, -50%);
     }
     100% {
         right: -50vw;
-        transform: translateX(0);
+        transform: translate(0, -50%);
     }
 }

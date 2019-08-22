@@ -12,6 +12,9 @@ jQuery( document ).ready( function( $ ) {
 		$( this ).css( 'background-color', funCardColors[ Math.floor( Math.random() * 3 ) + 0 ] );
 	} );
 
+	// Set dynamic Height of Container only once
+	$('.material_cards-container').css('height','calc(100vh - '+($('.site-header').height()+$('.site-footer').height()+24)+'px');
+
 	flyCardInRight();
 
 	function flyCardInRight() {

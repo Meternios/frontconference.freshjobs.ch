@@ -3,7 +3,7 @@
 * Plugin Name: Material Cards
 * Plugin URI: https://github.com/Meternios/frontconference.freshjobs.ch
 * Description: Plugin that creates a custom Post Type Cards with Material Design
-* Version: 1.2
+* Version: 1.4
 * Author: Florian Hitz
 * Author URI: https://github.com/Meternios
 **/
@@ -17,23 +17,96 @@ define( 'MATERIAL_CARDS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 /**
  * Handle Admin Page
  **/
-add_action( 'admin_menu', 'material_cards_admin_menu' );
-function material_cards_admin_menu() {
-	add_menu_page( 'Material_Cards-Plugin', 'Material Cards', 'manage_options', 'material_cards-admin-page', 'material_cards_admin_page', 'dashicons-admin-page', 6  );
-}
-
-function material_cards_admin_page(){
-	include MATERIAL_CARDS_PLUGIN_PATH.'admin/material_cards-admin-page.php';
-	wp_enqueue_style( 'admin-style', MATERIAL_CARDS_PLUGIN_URL.'css/admin-style.css', array(), '1.0.0' );
-}
-
 add_action( 'admin_print_scripts-post.php', 'portfolio_admin_script', 11 );
-
 function portfolio_admin_script() {
     global $post_type;
-    if( 'cards' == $post_type )
-    wp_enqueue_style( 'admin-style', MATERIAL_CARDS_PLUGIN_URL.'css/admin-style.css', array(), '1.0.0' );
+    if( 'cards' === $post_type ) {
+		   wp_enqueue_style( 'admin-style', MATERIAL_CARDS_PLUGIN_URL.'css/admin-style.css', array(), '1.0.0' );
+	}
 }
+
+/**
+ * Remove Disscusion and Comments
+ **/
+function material_cards_remove_meta_box()
+{
+	remove_meta_box("commentstatusdiv", "cards", "normal");
+	remove_meta_box("commentsdiv", "cards", "normal");
+}
+
+add_action("do_meta_boxes", "material_cards_remove_meta_box");
+
+/**
+ * Add Custom Meta Box to Custom Post Type Backend
+ **/
+function material_cards_custom_meta_box_markup($object)
+{
+	// Prevent Attacks
+    wp_nonce_field(basename(__FILE__), "meta-box-nonce");
+
+    ?>
+        <div class="material_cards-custom-meta-box">
+			<fieldset>
+				<label for="material_cards-header"><? _e('Card header','material_cards') ?></label>
+				<input name="material_cards-header" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-header", true); ?>">
+				<br>
+				<label for="material_cards-content"><? _e('Card content','material_cards') ?></label>
+				<input name="material_cards-content" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-content", true); ?>">
+				<br>
+				<label for="material_cards-footer"><? _e('Card footer','material_cards') ?></label>
+				<input name="material_cards-footer" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-footer", true); ?>">
+			</fieldset>
+        </div>
+    <?php  
+}
+
+function material_cards_add_custom_meta_box()
+{
+    add_meta_box("material_cards-meta-box", __('Card meta (html allowed)','material_cards'), "material_cards_custom_meta_box_markup", "cards", "normal", "high", null);
+}
+
+add_action("add_meta_boxes", "material_cards_add_custom_meta_box");
+
+/**
+ * Safe Custom Meta Box Data
+ **/
+function material_cards_save_custom_meta_box($post_id, $post, $update)
+{
+    if (!isset($_POST["meta-box-nonce"]) || !wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)))
+        return $post_id;
+
+    if(!current_user_can("edit_post", $post_id))
+        return $post_id;
+
+    if(defined("DOING_AUTOSAVE") && DOING_AUTOSAVE)
+        return $post_id;
+
+    $slug = "cards";
+    if($slug != $post->post_type)
+        return $post_id;
+
+    $meta_box_text_value = "";
+
+    if(isset($_POST["material_cards-header"]))
+    {
+        $meta_box_text_value = $_POST["material_cards-header"];
+    }   
+	update_post_meta($post_id, "material_cards-header", $meta_box_text_value);
+	
+	if(isset($_POST["material_cards-content"]))
+    {
+        $meta_box_text_value = $_POST["material_cards-content"];
+    }   
+	update_post_meta($post_id, "material_cards-content", $meta_box_text_value);
+	
+	if(isset($_POST["material_cards-footer"]))
+    {
+        $meta_box_text_value = $_POST["material_cards-footer"];
+    }   
+    update_post_meta($post_id, "material_cards-footer", $meta_box_text_value);
+}
+
+add_action("save_post", "material_cards_save_custom_meta_box", 10, 3);
 
 /**
  * Prepare Scripts and Styles to be enqueued
@@ -72,7 +145,7 @@ function material_cards_add_post_type() {
 		'description'         => __( 'Custom Post Type Cards', 'material_cards' ),
 		'labels'              => $labels,
 		// Features this CPT supports in Post Editor
-		'supports'            => array( 'title', 'revisions'),
+		'supports'            => array( 'title', 'revisions','thumbnail' ),
 		// Assign custom taxonomy
 		'taxonomies'          => array( 'card_category' ),
 		'hierarchical'        => false,
@@ -205,20 +278,30 @@ function material_cards_grid_function() {
 			$current_terms = wp_get_post_terms( get_the_ID(), 'card_category', array("fields" => "all") );
 			$classes = ['material-card'];
 			$post_meta = get_post_meta(get_the_ID());
+			$preparedHtml = "";
 
 			if( $current_terms[0]->slug === "fun-card" ){
 				$classes[] = "fun-card";
+				$preparedHtml = '
+				<div class="card-content">'.get_the_post_thumbnail( get_the_ID(),'thumbnail' ).'<span>'.$post_meta['material_cards-content'][0].'</span></div>
+				<div class="card-footer"><span>'.$post_meta['material_cards-footer'][0].'</span></div>';
 			}else if( $current_terms[0]->slug === "job-card" ){
 				$classes[] = "job-card";
+				$preparedHtml = '
+				<div class="card-content"><span>'.$post_meta['material_cards-content'][0].'</span></div>
+				<div class="card-footer">'.get_the_post_thumbnail( get_the_ID(),'thumbnail' ).'<a href="'.$post_meta['material_cards-footer'][0].'">'.$post_meta['material_cards-footer'][0].'</a></div>';
 			}else{
 				$classes[] = "error-card";
+				$preparedHtml = '
+				<div class="card-content"><span>'.$post_meta['material_cards-content'][0].'</span></div>
+				<div class="card-footer"><span>'.$post_meta['material_cards-footer'][0].'</span></div>';
 			}
 
-			$html .= '<div class="'.implode(" ", $classes).'">
-					<div class="card-header"><span>'.$post_meta['material_cards-header'][0].'</span></div>
-					<div class="card-content"><span>'.$post_meta['material_cards-content'][0].'</span></div>
-					<div class="card-footer"><span>'.$post_meta['material_cards-footer'][0].'</span></div>
-				</div>';
+			$html .= '
+			<div class="'.implode(" ", $classes).'">
+				<div class="card-header"><span>'.$post_meta['material_cards-header'][0].'</span></div>
+				'.$preparedHtml.'
+			</div>';
 		}
 		$html .= '</div>';
 	}
@@ -227,86 +310,3 @@ function material_cards_grid_function() {
 	return $html;
 }
 add_shortcode( 'material_cards_grid', 'material_cards_grid_function' );
-
-/**
- * Remove Disscusion and Comments
- **/
-function material_cards_remove_meta_box()
-{
-	remove_meta_box("commentstatusdiv", "cards", "normal");
-	remove_meta_box("commentsdiv", "cards", "normal");
-}
-
-add_action("do_meta_boxes", "material_cards_remove_meta_box");
-
-/**
- * Add Custom Meta Box to Custom Post Type Backend
- **/
-function material_cards_custom_meta_box_markup($object)
-{
-	// Prevent Attacks
-    wp_nonce_field(basename(__FILE__), "meta-box-nonce");
-
-    ?>
-        <div class="material_cards-custom-meta-box">
-			<fieldset>
-				<label for="material_cards-header"><? _e('Card header','material_cards') ?></label>
-				<input name="material_cards-header" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-header", true); ?>">
-				<br>
-				<label for="material_cards-content"><? _e('Card content','material_cards') ?></label>
-				<input name="material_cards-content" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-content", true); ?>">
-				<br>
-				<label for="material_cards-footer"><? _e('Card footer','material_cards') ?></label>
-				<input name="material_cards-footer" type="text" value="<?php echo get_post_meta($object->ID, "material_cards-footer", true); ?>">
-			</fieldset>
-        </div>
-    <?php  
-}
-
-function material_cards_add_custom_meta_box()
-{
-    add_meta_box("material_cards-meta-box", __('Card meta (html allowed)','material_cards'), "material_cards_custom_meta_box_markup", "cards", "normal", "high", null);
-}
-
-add_action("add_meta_boxes", "material_cards_add_custom_meta_box");
-
-/**
- * Safe Custom Meta Box Data
- **/
-function material_cards_save_custom_meta_box($post_id, $post, $update)
-{
-    if (!isset($_POST["meta-box-nonce"]) || !wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)))
-        return $post_id;
-
-    if(!current_user_can("edit_post", $post_id))
-        return $post_id;
-
-    if(defined("DOING_AUTOSAVE") && DOING_AUTOSAVE)
-        return $post_id;
-
-    $slug = "cards";
-    if($slug != $post->post_type)
-        return $post_id;
-
-    $meta_box_text_value = "";
-
-    if(isset($_POST["material_cards-header"]))
-    {
-        $meta_box_text_value = $_POST["material_cards-header"];
-    }   
-	update_post_meta($post_id, "material_cards-header", $meta_box_text_value);
-	
-	if(isset($_POST["material_cards-content"]))
-    {
-        $meta_box_text_value = $_POST["material_cards-content"];
-    }   
-	update_post_meta($post_id, "material_cards-content", $meta_box_text_value);
-	
-	if(isset($_POST["material_cards-footer"]))
-    {
-        $meta_box_text_value = $_POST["material_cards-footer"];
-    }   
-    update_post_meta($post_id, "material_cards-footer", $meta_box_text_value);
-}
-
-add_action("save_post", "material_cards_save_custom_meta_box", 10, 3);
