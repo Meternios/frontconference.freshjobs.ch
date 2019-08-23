@@ -13,7 +13,7 @@ jQuery( document ).ready( function( $ ) {
 	} );
 
 	// Set dynamic Height of Container only once
-	$('.material_cards-container').css('height','calc(100vh - '+($('.site-header').height()+$('.site-footer').height()+24)+'px');
+	$( '.material_cards-container' ).css( 'height', 'calc(100vh - ' + ( $( '.site-header' ).height() + $( '.site-footer' ).height() + 24 ) + 'px' );
 
 	flyCardInRight();
 
@@ -55,7 +55,7 @@ jQuery( document ).ready( function( $ ) {
 
 	waitHandler[ 3 ] = setInterval( function() {
 		flyCardInRight();
-	}, 10000 );
+	}, 8100 );
 
 	let start = null;
 	$( '.material_cards-container' ).on( 'touchstart', function() {
@@ -78,21 +78,23 @@ jQuery( document ).ready( function( $ ) {
 				// a left -> right swipe
 				waitHandler.forEach( clearTimeout );
 				flyCardOutRight();
-				setTimeout( flyCardInLeft, 1000 );
-
-				waitHandler[ 3 ] = setInterval( function() {
-					flyCardInRight();
-				}, 10000 );
+				setTimeout( function() {
+					flyCardInLeft();
+					waitHandler[ 3 ] = setInterval( function() {
+						flyCardInRight();
+					}, 8100 );
+				}, 1000 );
 			}
 			if ( end < start - offset ) {
 				//a right -> left swipe
 				waitHandler.forEach( clearTimeout );
 				flyCardOutLeft();
-				setTimeout( flyCardInRight, 1000 );
-
-				waitHandler[ 3 ] = setInterval( function() {
+				setTimeout( function() {
 					flyCardInRight();
-				}, 10000 );
+					waitHandler[ 3 ] = setInterval( function() {
+						flyCardInRight();
+					}, 8100 );
+				}, 1000 );
 			}
 		}
 	} );
