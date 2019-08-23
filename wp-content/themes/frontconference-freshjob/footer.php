@@ -15,6 +15,7 @@
 
 	<footer id="colophon" class="site-footer">
 		<div class="site-info">
+			<img src="/frontconference.freshjobs.ch/wp-content/uploads/2019/08/swipe_icon_white.png" alt="Swipe Icon">
 			<span><?php _e('Build for Frontconference','frontconference'); ?></span>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
