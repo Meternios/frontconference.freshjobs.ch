@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Erstellungszeit: 22. Aug 2019 um 18:14
+-- Erstellungszeit: 23. Aug 2019 um 07:12
 -- Server-Version: 5.7.24-log
 -- PHP-Version: 7.2.10
 
@@ -201,7 +201,7 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (100, 'widget_archives', 'a:2:{i:2;a:3:{s:5:\"title\";s:0:\"\";s:5:\"count\";i:0;s:8:\"dropdown\";i:0;}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (101, 'widget_meta', 'a:2:{i:2;a:1:{s:5:\"title\";s:0:\"\";}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (102, 'sidebars_widgets', 'a:3:{s:19:\"wp_inactive_widgets\";a:6:{i:0;s:10:\"archives-2\";i:1;s:6:\"meta-2\";i:2;s:8:\"search-2\";i:3;s:12:\"categories-2\";i:4;s:14:\"recent-posts-2\";i:5;s:17:\"recent-comments-2\";}s:9:\"sidebar-1\";a:0:{}s:13:\"array_version\";i:3;}', 'yes'),
-(103, 'cron', 'a:6:{i:1566500990;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1566515390;a:3:{s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1566558588;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1566558630;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1566558633;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}s:7:\"version\";i:2;}', 'yes'),
+(103, 'cron', 'a:6:{i:1566547790;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1566558588;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1566558590;a:3:{s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1566558630;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1566558633;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}s:7:\"version\";i:2;}', 'yes'),
 (104, 'widget_pages', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (105, 'widget_calendar', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (106, 'widget_media_audio', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
@@ -212,10 +212,10 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (111, 'widget_nav_menu', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (112, 'widget_custom_html', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (114, 'recovery_keys', 'a:1:{s:22:\"3rdgJvfBQAaElZ8ejeK8WY\";a:2:{s:10:\"hashed_key\";s:34:\"$P$BE8gqWb/nZX4mzRXeeTtYOwerP4bnM1\";s:10:\"created_at\";i:1566494475;}}', 'yes'),
-(115, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:65:\"https://downloads.wordpress.org/release/de_CH/wordpress-5.2.2.zip\";s:6:\"locale\";s:5:\"de_CH\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:65:\"https://downloads.wordpress.org/release/de_CH/wordpress-5.2.2.zip\";s:10:\"no_content\";b:0;s:11:\"new_bundled\";b:0;s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.2.2\";s:7:\"version\";s:5:\"5.2.2\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.0\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1566493595;s:15:\"version_checked\";s:5:\"5.2.2\";s:12:\"translations\";a:0:{}}', 'no'),
+(115, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:65:\"https://downloads.wordpress.org/release/de_CH/wordpress-5.2.2.zip\";s:6:\"locale\";s:5:\"de_CH\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:65:\"https://downloads.wordpress.org/release/de_CH/wordpress-5.2.2.zip\";s:10:\"no_content\";b:0;s:11:\"new_bundled\";b:0;s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.2.2\";s:7:\"version\";s:5:\"5.2.2\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.0\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1566539547;s:15:\"version_checked\";s:5:\"5.2.2\";s:12:\"translations\";a:0:{}}', 'no'),
 (116, 'theme_mods_twentynineteen', 'a:3:{s:18:\"custom_css_post_id\";i:-1;s:16:\"sidebars_widgets\";a:2:{s:4:\"time\";i:1566044245;s:4:\"data\";a:2:{s:19:\"wp_inactive_widgets\";a:6:{i:0;s:10:\"archives-2\";i:1;s:6:\"meta-2\";i:2;s:8:\"search-2\";i:3;s:12:\"categories-2\";i:4;s:14:\"recent-posts-2\";i:5;s:17:\"recent-comments-2\";}s:9:\"sidebar-1\";a:0:{}}}s:18:\"nav_menu_locations\";a:0:{}}', 'yes'),
-(118, '_site_transient_update_plugins', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1566493599;s:7:\"checked\";a:1:{s:27:\"wp_material_cards/index.php\";s:3:\"1.2\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:0:{}}', 'no'),
-(121, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1566493599;s:7:\"checked\";a:1:{s:24:\"frontconference-freshjob\";s:5:\"1.0.0\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'no'),
+(118, '_site_transient_update_plugins', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1566539548;s:7:\"checked\";a:1:{s:27:\"wp_material_cards/index.php\";s:3:\"1.4\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:0:{}}', 'no'),
+(121, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1566539548;s:7:\"checked\";a:1:{s:24:\"frontconference-freshjob\";s:5:\"1.0.0\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'no'),
 (122, '_site_transient_timeout_browser_666332998c62658cc43216116351bf1f', '1566645032', 'no'),
 (123, '_site_transient_browser_666332998c62658cc43216116351bf1f', 'a:10:{s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"76.0.3809.100\";s:8:\"platform\";s:7:\"Windows\";s:10:\"update_url\";s:29:\"https://www.google.com/chrome\";s:7:\"img_src\";s:43:\"http://s.w.org/images/browsers/chrome.png?1\";s:11:\"img_src_ssl\";s:44:\"https://s.w.org/images/browsers/chrome.png?1\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;s:6:\"mobile\";b:0;}', 'no'),
 (124, '_site_transient_timeout_php_check_464f4068caea2f8f3edcc5ae59429c65', '1566645032', 'no'),
@@ -229,8 +229,6 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (163, 'nav_menu_options', 'a:2:{i:0;b:0;s:8:\"auto_add\";a:0:{}}', 'yes'),
 (168, 'category_children', 'a:0:{}', 'yes'),
 (176, 'card_category_children', 'a:0:{}', 'yes'),
-(185, '_site_transient_timeout_theme_roots', '1566495398', 'no'),
-(186, '_site_transient_theme_roots', 'a:1:{s:24:\"frontconference-freshjob\";s:7:\"/themes\";}', 'no'),
 (188, '_site_transient_timeout_community-events-1aecf33ab8525ff212ebdffbb438372e', '1566536838', 'no'),
 (189, '_site_transient_community-events-1aecf33ab8525ff212ebdffbb438372e', 'a:3:{s:9:\"sandboxed\";b:0;s:8:\"location\";a:1:{s:2:\"ip\";s:9:\"127.0.0.0\";}s:6:\"events\";a:6:{i:0;a:7:{s:4:\"type\";s:8:\"wordcamp\";s:5:\"title\";s:11:\"WordCamp US\";s:3:\"url\";s:29:\"https://2019.us.wordcamp.org/\";s:6:\"meetup\";s:0:\"\";s:10:\"meetup_url\";s:0:\"\";s:4:\"date\";s:19:\"2019-11-01 00:00:00\";s:8:\"location\";a:4:{s:8:\"location\";s:18:\"St. Louis, MO, USA\";s:7:\"country\";s:2:\"US\";s:8:\"latitude\";d:38.65321349999999966939867590554058551788330078125;s:9:\"longitude\";d:-90.3136733000000049287336878478527069091796875;}}i:1;a:7:{s:4:\"type\";s:6:\"meetup\";s:5:\"title\";s:33:\"DSGVO - Leitfaden für die Praxis\";s:3:\"url\";s:58:\"https://www.meetup.com/WordPress-Bern/events/vwhkqqyzlbdc/\";s:6:\"meetup\";s:14:\"WordPress Bern\";s:10:\"meetup_url\";s:38:\"https://www.meetup.com/WordPress-Bern/\";s:4:\"date\";s:19:\"2019-08-22 18:00:00\";s:8:\"location\";a:4:{s:8:\"location\";s:17:\"Bern, Switzerland\";s:7:\"country\";s:2:\"ch\";s:8:\"latitude\";d:46.94825744628899855115378159098327159881591796875;s:9:\"longitude\";d:7.44225788116459963106308350688777863979339599609375;}}i:2;a:7:{s:4:\"type\";s:6:\"meetup\";s:5:\"title\";s:29:\"WordPress Meetup St.Gallen #7\";s:3:\"url\";s:67:\"https://www.meetup.com/St-Gallen-WordPress-Meetup/events/262508389/\";s:6:\"meetup\";s:27:\"St. Gallen WordPress Meetup\";s:10:\"meetup_url\";s:50:\"https://www.meetup.com/St-Gallen-WordPress-Meetup/\";s:4:\"date\";s:19:\"2019-08-28 18:30:00\";s:8:\"location\";a:4:{s:8:\"location\";s:23:\"St. Gallen, Switzerland\";s:7:\"country\";s:2:\"ch\";s:8:\"latitude\";d:47.42049026489299734521409845910966396331787109375;s:9:\"longitude\";d:9.3672208786011008641025910037569701671600341796875;}}i:3;a:7:{s:4:\"type\";s:8:\"wordcamp\";s:5:\"title\";s:16:\"WordCamp Zürich\";s:3:\"url\";s:33:\"https://2019.zurich.wordcamp.org/\";s:6:\"meetup\";N;s:10:\"meetup_url\";N;s:4:\"date\";s:19:\"2019-09-13 00:00:00\";s:8:\"location\";a:4:{s:8:\"location\";s:7:\"Zürich\";s:7:\"country\";s:2:\"CH\";s:8:\"latitude\";d:47.39018630000000342761268257163465023040771484375;s:9:\"longitude\";d:8.5158384999999992004404703038744628429412841796875;}}i:4;a:7:{s:4:\"type\";s:6:\"meetup\";s:5:\"title\";s:36:\"WordCamp Zurich 2019 (Ticket needed)\";s:3:\"url\";s:57:\"https://www.meetup.com/WordPress-Zurich/events/263197017/\";s:6:\"meetup\";s:16:\"WordPress Zurich\";s:10:\"meetup_url\";s:40:\"https://www.meetup.com/WordPress-Zurich/\";s:4:\"date\";s:19:\"2019-09-14 09:00:00\";s:8:\"location\";a:4:{s:8:\"location\";s:20:\"Zürich, Switzerland\";s:7:\"country\";s:2:\"ch\";s:8:\"latitude\";d:47.3899116516110012753415503539144992828369140625;s:9:\"longitude\";d:8.516050338745099423931605997495353221893310546875;}}i:5;a:7:{s:4:\"type\";s:6:\"meetup\";s:5:\"title\";s:21:\"WordPress Meetup Bern\";s:3:\"url\";s:58:\"https://www.meetup.com/WordPress-Bern/events/vwhkqqyzmbjc/\";s:6:\"meetup\";s:14:\"WordPress Bern\";s:10:\"meetup_url\";s:38:\"https://www.meetup.com/WordPress-Bern/\";s:4:\"date\";s:19:\"2019-09-26 18:00:00\";s:8:\"location\";a:4:{s:8:\"location\";s:17:\"Bern, Switzerland\";s:7:\"country\";s:2:\"ch\";s:8:\"latitude\";d:46.94825744628899855115378159098327159881591796875;s:9:\"longitude\";d:7.44225788116459963106308350688777863979339599609375;}}}}', 'no'),
 (190, '_transient_timeout_feed_f014c832422b67a4cec692b17aa40756', '1566536839', 'no');
@@ -245,7 +243,9 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (197, '_transient_feed_mod_8d5c87fbe8c82bb2500f5d58f08a433a', '1566493640', 'no'),
 (198, '_transient_timeout_dash_v2_b44ed4b9d5450ba0f7c6bd32b0ce0350', '1566536840', 'no'),
 (199, '_transient_dash_v2_b44ed4b9d5450ba0f7c6bd32b0ce0350', '<div class=\"rss-widget\"><ul><li><a class=\'rsswidget\' href=\'https://de.wordpress.org/2019/08/infos-zum-kommenden-major-release-5-3/\'>Infos zum kommenden Major-Release 5.3</a></li></ul></div><div class=\"rss-widget\"><ul><li><a class=\'rsswidget\' href=\'https://www.perun.net/2019/08/21/sicherheitsupdates-alte-wordpress-versionen/\'>Gibt es bald keine Sicherheitsupdates für alte WordPress-Versionen mehr?</a></li><li><a class=\'rsswidget\' href=\'https://www.perun.net/2019/08/20/wordpress-gutenberg-6-3/\'>WordPress: Gutenberg 6.3 ermöglicht Nutzern noch mehr Design-Anpassungen</a></li><li><a class=\'rsswidget\' href=\'https://wp-sofa.de/podcasts/wp-sofa-wordpress-news-21-kw-33-19/\'>WP Sofa: WP Sofa – WordPress News #21 – KW 33/19</a></li></ul></div>', 'no'),
-(201, 'recovery_mode_email_last_sent', '1566494475', 'yes');
+(201, 'recovery_mode_email_last_sent', '1566494475', 'yes'),
+(204, '_site_transient_timeout_theme_roots', '1566541348', 'no'),
+(205, '_site_transient_theme_roots', 'a:1:{s:24:\"frontconference-freshjob\";s:7:\"/themes\";}', 'no');
 
 -- --------------------------------------------------------
 
@@ -344,7 +344,9 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (93, 44, '_thumbnail_id', '45'),
 (94, 44, 'material_cards-header', 'Speaker Fact'),
 (95, 44, 'material_cards-content', ''),
-(96, 44, 'material_cards-footer', 'Andy Budd is a qualified dive instructor');
+(96, 44, 'material_cards-footer', 'Andy Budd is a qualified dive instructor'),
+(99, 48, '_wp_attached_file', '2019/08/swipe_icon_white.png'),
+(100, 48, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:20;s:6:\"height\";i:20;s:4:\"file\";s:28:\"2019/08/swipe_icon_white.png\";s:5:\"sizes\";a:0:{}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}');
 
 -- --------------------------------------------------------
 
@@ -420,7 +422,8 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (43, 1, '2019-08-22 19:53:26', '2019-08-22 17:53:26', '', 'Senior Full-Stack Drupal Developer*', '', 'inherit', 'closed', 'closed', '', '42-revision-v1', '', '', '2019-08-22 19:53:26', '2019-08-22 17:53:26', '', 42, 'http://localhost/frontconference.freshjobs.ch/42-revision-v1/', 0, 'revision', '', 0),
 (44, 1, '2019-08-22 19:56:04', '2019-08-22 17:56:04', '', 'Speaker Andy', '', 'publish', 'closed', 'closed', '', 'speaker-andy', '', '', '2019-08-22 19:56:04', '2019-08-22 17:56:04', '', 0, 'http://localhost/frontconference.freshjobs.ch/?post_type=cards&#038;p=44', 0, 'cards', '', 0),
 (45, 1, '2019-08-22 19:56:01', '2019-08-22 17:56:01', '', 'andy_budd', '', 'inherit', 'closed', 'closed', '', 'andy_budd', '', '', '2019-08-22 19:56:01', '2019-08-22 17:56:01', '', 44, 'http://localhost/frontconference.freshjobs.ch/wp-content/uploads/2019/08/andy_budd.png', 0, 'attachment', 'image/png', 0),
-(46, 1, '2019-08-22 19:56:04', '2019-08-22 17:56:04', '', 'Speaker Andy', '', 'inherit', 'closed', 'closed', '', '44-revision-v1', '', '', '2019-08-22 19:56:04', '2019-08-22 17:56:04', '', 44, 'http://localhost/frontconference.freshjobs.ch/44-revision-v1/', 0, 'revision', '', 0);
+(46, 1, '2019-08-22 19:56:04', '2019-08-22 17:56:04', '', 'Speaker Andy', '', 'inherit', 'closed', 'closed', '', '44-revision-v1', '', '', '2019-08-22 19:56:04', '2019-08-22 17:56:04', '', 44, 'http://localhost/frontconference.freshjobs.ch/44-revision-v1/', 0, 'revision', '', 0),
+(48, 1, '2019-08-23 08:56:14', '2019-08-23 06:56:14', '', 'swipe_icon_white', '', 'inherit', 'closed', 'closed', '', 'swipe_icon_white', '', '', '2019-08-23 08:56:14', '2019-08-23 06:56:14', '', 0, 'http://localhost/frontconference.freshjobs.ch/wp-content/uploads/2019/08/swipe_icon_white.png', 0, 'attachment', 'image/png', 0);
 
 -- --------------------------------------------------------
 
@@ -547,7 +550,8 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (19, 1, 'wp_user-settings', 'libraryContent=browse'),
 (20, 1, 'wp_user-settings-time', '1566043397'),
 (21, 1, 'managenav-menuscolumnshidden', 'a:5:{i:0;s:11:\"link-target\";i:1;s:11:\"css-classes\";i:2;s:3:\"xfn\";i:3;s:11:\"description\";i:4;s:15:\"title-attribute\";}'),
-(22, 1, 'metaboxhidden_nav-menus', 'a:1:{i:0;s:12:\"add-post_tag\";}');
+(22, 1, 'metaboxhidden_nav-menus', 'a:1:{i:0;s:12:\"add-post_tag\";}'),
+(23, 1, 'session_tokens', 'a:1:{s:64:\"1e9568aea974854d3f71dae74d2841cfb7742e0669fecbdf4516ba183207392f\";a:4:{s:10:\"expiration\";i:1566716017;s:2:\"ip\";s:9:\"127.0.0.1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36\";s:5:\"login\";i:1566543217;}}');
 
 -- --------------------------------------------------------
 
@@ -704,19 +708,19 @@ ALTER TABLE `wp_links`
 -- AUTO_INCREMENT für Tabelle `wp_options`
 --
 ALTER TABLE `wp_options`
-  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT für Tabelle `wp_postmeta`
 --
 ALTER TABLE `wp_postmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT für Tabelle `wp_posts`
 --
 ALTER TABLE `wp_posts`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT für Tabelle `wp_termmeta`
@@ -740,7 +744,7 @@ ALTER TABLE `wp_term_taxonomy`
 -- AUTO_INCREMENT für Tabelle `wp_usermeta`
 --
 ALTER TABLE `wp_usermeta`
-  MODIFY `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT für Tabelle `wp_users`
