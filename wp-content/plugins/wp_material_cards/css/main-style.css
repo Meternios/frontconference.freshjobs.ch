@@ -160,3 +160,47 @@
         transform: translate(0, -50%);
     }
 }
+
+@media only screen and (max-width: 1024px) {
+    .material-card {
+        padding: 40px;
+    }
+
+    .job-card .card-header,
+    .fun-card .card-footer {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .job-card .card-header,
+    .fun-card .card-footer {
+        font-size: 1.3em;
+    }
+
+    .job-card .card-footer a {
+        position: relative;
+        margin-left: 0;
+        transform: initial;
+        top: initial;
+        font-size: 0.8em;
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .material-card {
+        width: 80vw;
+        right: -80vw;
+        top: 50%;
+    }
+
+    .job-card .card-header,
+    .fun-card .card-footer {
+        font-size: 1.1em;
+    }
+
+    .job-card .card-footer a {
+        display: none;
+    }
+}
