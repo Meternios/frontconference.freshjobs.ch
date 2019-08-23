@@ -636,6 +636,19 @@ textarea {
 	margin-bottom: 2em;
 }
 
+.site-footer img {
+	position: absolute;
+	bottom: 25px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@media screen and (min-width: 769px){
+	.site-footer img {
+		display: none;
+	}
+}
+
 /*--------------------------------------------------------------
 # Navigation
 --------------------------------------------------------------*/
