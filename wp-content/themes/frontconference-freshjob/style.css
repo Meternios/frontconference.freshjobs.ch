@@ -614,6 +614,13 @@ textarea {
 /*--------------------------------------------------------------
 ## Header
 --------------------------------------------------------------*/
+.site-header {
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
 .site-branding {
 	text-align: center;
 }
@@ -882,11 +889,6 @@ a:hover, a:active {
 --------------------------------------------------------------*/
 .sticky {
 	display: block;
-}
-
-.post,
-.page {
-	margin: 0 0 1.5em;
 }
 
 .updated:not(.published) {

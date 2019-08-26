@@ -12,9 +12,6 @@ jQuery(document).ready(
 			} 
 		);
 
-		// Set dynamic Height of Container only once
-		$('.material_cards-container').css('height', 'calc(100vh - ' + ( $('.site-header').height() + $('.site-footer').height() + 24 ) + 'px');
-
 		// Start Animation
 		flyCardInRight();
 
