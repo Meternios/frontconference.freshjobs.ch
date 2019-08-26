@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<ruleset name="Required">
+	<description>required Coding Standards</description>
+
+	<!-- Check all PHP files in directory tree by default. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Show progress and sniff codes in all reports -->
+	<arg value="ps"/>
+
+	<!-- Check up to 20 files simultaneously. -->
+	<arg name="parallel" value="20"/>
+
+	<!-- Adds support for .phpcsignore
+ 		https://github.com/squizlabs/PHP_CodeSniffer/issues/1884 -->
+	<autoload>./bootstrap.php</autoload>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*\.min\.*</exclude-pattern>
+
+	<!-- Analysis of problematic variable use. -->
+	<rule ref="VariableAnalysis"/>
+
+	<rule ref="WordPress-Core">
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	</rule>
+
+	<rule ref="WordPress-Docs">
+		<!-- Documentation is organized with the use of namespaces. -->
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+	</rule>
+
+	<rule ref="WordPress-Extra">
+		<!-- _e() and _ex() are considered safe for internal translations -->
+		<exclude name="WordPress.Security.EscapeOutput.UnsafePrintingFunction"/>
+	</rule>
+
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false"/>
+		</properties>
+	</rule>
+
+	<!-- Allow . in hook names. -->
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<property name="additionalWordDelimiters" value="."/>
+		</properties>
+	</rule>
+
+	<!-- File Layout: Declare symbols or run code, but not both. -->
+	<rule ref="PSR1.Files.SideEffects"/>
+
+	<!-- Enforces short array syntax. -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+	<rule ref="WordPress.Security.EscapeOutput">
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array">
+				<!-- i18n functions are considered safe for internal translations. -->
+				<element value="__"/>
+				<element value="_x"/>
+				<element value="_n"/>
+				<element value="_nx"/>
+				<element value="number_format_i18n"/>
+				<element value="date_i18n"/>
+
+				<!-- Considered some template functions as safe. -->
+				<element value="paginate_links"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Make sure longer multiple statements are always properly aligned. -->
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="200"/>
+		</properties>
+	</rule>
+
+	<!-- Allow the use of filesystem functions. -->
+	<rule ref="WordPress.WP.AlternativeFunctions">
+		<properties>
+			<property name="exclude" type="array">
+				<element value="file_get_contents"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="Squiz.PHP.CommentedOutCode">
+		<properties>
+			<property name="maxPercentage" value="75"/>
+		</properties>
+	</rule>
+
+	<!-- Checks that there's no whitespace between a nullability symbol and a typehint. -->
+	<rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
+	<!-- Checks whether the nullablity ? symbol is present before each nullable and optional parameter. -->
+	<rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
+	<!-- Enforce no space between closing brace and colon of return typehint. -->
+	<rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing">
+		<properties>
+			<property name="spacesCountBeforeColon" value="0"/>
+		</properties>
+	</rule>
+
+	<!-- Disallows grouped use declarations. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
+	<!-- Disallows leading backslash in use statement. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
+	<!-- Enforces fully qualified names of classes and interfaces in annotations. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
+	<!-- Checks whether uses at the top of a file are alphabetically sorted. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+	<!-- Enforces one space after namespace, disallows content between namespace name and semicolon and disallows use of bracketed syntax. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceDeclaration"/>
+	<!-- Prohibits multiple uses separated by commas. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
+	<!-- Enforces one blank line before and after namespace. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing">
+		<properties>
+			<property name="linesCountBeforeNamespace" value="1"/>
+			<property name="linesCountAfterNamespace" value="1"/>
+		</properties>
+	</rule>
+	<!-- Enforces one blank before first use, after last use and none between two different types of use. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.UseSpacing">
+		<properties>
+			<property name="linesCountBeforeFirstUse" value="1"/>
+			<property name="linesCountBetweenUseTypes" value="0"/>
+			<property name="linesCountAfterLastUse" value="1"/>
+		</properties>
+	</rule>
+	<!-- Prohibits uses from the same namespace. -->
+	<rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
+
+	<!--Require the latest version of WordPress. -->
+	<config name="minimum_supported_wp_version" value="4.9"/>
+
+	<!-- Run against the PHPCompatibilityWP ruleset -->
+	<rule ref="PHPCompatibilityWP"/>
+
+	<config name="testVersion" value="7.1-"/>
+</ruleset>
