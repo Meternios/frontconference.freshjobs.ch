@@ -22,7 +22,7 @@ jQuery(document).ready(
 			}, 8100 
 		);
 
-		//Animation functions
+		// Animation functions
 		function flyCardInRight()
 		{
 			cardPerIndex.eq(currentIndex).addClass('material_cards-flyInRight');

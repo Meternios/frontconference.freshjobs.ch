@@ -255,7 +255,7 @@ register_activation_hook(__FILE__, 'Material_Cards_install');
 /**
  * Generate Shortcode for Displaying Cards
  * 
- * @return Shortcode HTML
+ * @return string Shortcode HTML
  */
 function Material_Cards_Grid_function()
 {
